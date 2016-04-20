@@ -100,15 +100,15 @@ public class Resource {
         if(info == null){
             throw new IllegalArgumentException("missing resource [" + id + "]");
         } else {
-        	if(info.containsKey("deps")){
+        	uri = (String) info.get("uri");
+            loaded.put(id, uri);
+            
+            if(info.containsKey("deps")){
                 Object[] deps = ((JSONArray)info.get("deps")).toArray();
                 for(Object dep:deps){
                     this.require((String) dep);
                 }
             }
-        	
-        	uri = (String) info.get("uri");
-            loaded.put(id, uri);
             
             String type = (String) info.get("type");
             ArrayList<String> list = collection.get(type);
